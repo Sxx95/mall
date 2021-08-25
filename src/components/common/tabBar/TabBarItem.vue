@@ -22,8 +22,8 @@ export default {
     },
     activeColor: {
       type: String,
-      default: "red",
-      // default: "#d81e06",
+      // default: "red",
+      default: "#d81e06",
     },
   },
   data() {
