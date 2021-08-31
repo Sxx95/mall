@@ -100,5 +100,6 @@ export default {
 .home-tab-control {
   position: sticky;
   top: 44px;
+  z-index: 1;
 }
 </style>
