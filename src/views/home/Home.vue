@@ -5,17 +5,17 @@
         <div>购物街</div>
       </template>
     </nav-bar>
-    <home-swiper :banners="banners" />
-    <home-recommend-view :recommends="recommends" />
-    <home-feature-view />
-    <tab-control :titles="['流行', '新款', '精选']" class="home-tab-control" />
-    <goods-list :goods="goods['pop'].list" />
-    <ul>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-    </ul>
+    <scroll class="content">
+      <home-swiper :banners="banners" />
+      <home-recommend-view :recommends="recommends" />
+      <home-feature-view />
+      <tab-control
+        :titles="['流行', '新款', '精选']"
+        class="home-tab-control"
+        @tabClick="tabClick"
+      />
+      <goods-list :goods="showGoods" />
+    </scroll>
   </div>
 </template>
 
@@ -27,6 +27,7 @@ import HomeFeatureView from "./childComps/HomeFeatureView.vue";
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl.vue";
 import GoodsList from "components/content/goods/GoodsList";
+import Scroll from "components/common/scroll/Scroll.vue";
 
 import { getHomeMultiData, getHomeGoods } from "network/home.js";
 
@@ -39,6 +40,7 @@ export default {
     NavBar,
     TabControl,
     GoodsList,
+    Scroll,
   },
   data() {
     return {
@@ -59,6 +61,7 @@ export default {
           list: [],
         },
       },
+      currentType: "pop",
     };
   },
   created() {
@@ -68,7 +71,27 @@ export default {
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
+  computed: {
+    showGoods() {
+      return this.goods[this.currentType].list;
+    },
+  },
   methods: {
+    // 事件监听
+    tabClick(index) {
+      switch (index) {
+        case 0:
+          this.currentType = "pop";
+          break;
+        case 1:
+          this.currentType = "new";
+          break;
+        case 2:
+          this.currentType = "sell";
+          break;
+      }
+    },
+    // 数据请求
     getHomeMultiData() {
       getHomeMultiData().then((res) => {
         this.result = res;
@@ -79,7 +102,6 @@ export default {
     getHomeGoods(type) {
       const page = this.goods[type].page + 1;
       getHomeGoods(type, page).then((res) => {
-        // console.log(res);
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
       });
@@ -88,10 +110,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #home {
-  margin-top: 44px;
-  margin-bottom: 49px;
+  position: relative;
+  height: 100vh;
+  padding-top: 44px;
+  /* margin-bottom: 49px; */
 }
 .home-nav {
   background-color: var(--color-tint);
@@ -101,5 +125,12 @@ export default {
   position: sticky;
   top: 44px;
   z-index: 1;
+}
+.content {
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
 }
 </style>
