@@ -2,10 +2,10 @@
   <tab-bar>
     <tab-bar-item link="/home">
       <template #item_icon>
-        <img src="~assets/icons/svg/shouye.svg" />
+        <img src="~assets/img/tabbar/shouye.svg" />
       </template>
       <template #item_icon_active>
-        <img src="~assets/icons/svg/shouye-red.svg" />
+        <img src="~assets/img/tabbar/shouye-red.svg" />
       </template>
       <template #item_text>
         <span activeColor="blue">首页</span>
@@ -13,10 +13,10 @@
     </tab-bar-item>
     <tab-bar-item link="/category" activeColor="blue">
       <template #item_icon>
-        <img src="~assets/icons/svg/fenlei.svg" />
+        <img src="~assets/img/tabbar/fenlei.svg" />
       </template>
       <template #item_icon_active>
-        <img src="~assets/icons/svg/fenlei-red.svg" />
+        <img src="~assets/img/tabbar/fenlei-red.svg" />
       </template>
       <template #item_text>
         <span>分类</span>
@@ -24,10 +24,10 @@
     </tab-bar-item>
     <tab-bar-item link="/cart" activeColor="green">
       <template #item_icon>
-        <img src="~assets/icons/svg/gouwuche.svg" />
+        <img src="~assets/img/tabbar/gouwuche.svg" />
       </template>
       <template #item_icon_active>
-        <img src="~assets/icons/svg/gouwuche-red.svg" />
+        <img src="~assets/img/tabbar/gouwuche-red.svg" />
       </template>
       <template #item_text>
         <span>购物车</span>
@@ -35,10 +35,10 @@
     </tab-bar-item>
     <tab-bar-item link="/profile" activeColor="pink">
       <template #item_icon>
-        <img src="~assets/icons/svg/wode.svg" />
+        <img src="~assets/img/tabbar/wode.svg" />
       </template>
       <template #item_icon_active>
-        <img src="~assets/icons/svg/wode-red.svg" />
+        <img src="~assets/img/tabbar/wode-red.svg" />
       </template>
       <template #item_text>
         <span>我的</span>
