@@ -5,7 +5,15 @@
         <div>购物街</div>
       </template>
     </nav-bar>
-    <scroll class="content">
+    <scroll
+      class="content"
+      ref="scroll"
+      :probeType="3"
+      :click="true"
+      @scroll="contentScroll"
+      :pullUpLoad="true"
+      @pullingUp="loadMore"
+    >
       <home-swiper :banners="banners" />
       <home-recommend-view :recommends="recommends" />
       <home-feature-view />
@@ -16,6 +24,7 @@
       />
       <goods-list :goods="showGoods" />
     </scroll>
+    <back-top @click.native="backTop" v-show="isShowBackTop" />
   </div>
 </template>
 
@@ -28,6 +37,7 @@ import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl.vue";
 import GoodsList from "components/content/goods/GoodsList";
 import Scroll from "components/common/scroll/Scroll.vue";
+import BackTop from "components/content/backTop/BackTop.vue";
 
 import { getHomeMultiData, getHomeGoods } from "network/home.js";
 
@@ -41,6 +51,7 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
+    BackTop,
   },
   data() {
     return {
@@ -62,6 +73,7 @@ export default {
         },
       },
       currentType: "pop",
+      isShowBackTop: false,
     };
   },
   created() {
@@ -91,6 +103,16 @@ export default {
           break;
       }
     },
+    backTop() {
+      this.$refs.scroll.scrollTo(0, 0);
+    },
+    contentScroll(position) {
+      this.isShowBackTop = -position.y > 1000;
+    },
+    loadMore() {
+      this.getHomeGoods(this.currentType);
+      this.$refs.scroll.refresh();
+    },
     // 数据请求
     getHomeMultiData() {
       getHomeMultiData().then((res) => {
@@ -104,6 +126,7 @@ export default {
       getHomeGoods(type, page).then((res) => {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
+        this.$refs.scroll.finishPullUp();
       });
     },
   },
@@ -114,7 +137,7 @@ export default {
 #home {
   position: relative;
   height: 100vh;
-  padding-top: 44px;
+  /* padding-top: 44px; */
   /* margin-bottom: 49px; */
 }
 .home-nav {
@@ -132,5 +155,6 @@ export default {
   bottom: 49px;
   left: 0;
   right: 0;
+  overflow: hidden;
 }
 </style>
