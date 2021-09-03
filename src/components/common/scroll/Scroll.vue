@@ -24,6 +24,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    observeDOM: {
+      type: Boolean,
+      default: false,
+    },
+    observeImage: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -36,15 +44,21 @@ export default {
         probeType: this.probeType,
         click: this.click,
         pullUpLoad: this.pullUpLoad,
+        observeDOM: this.observeDOM,
+        observeImage: this.observeImage,
       });
       // 监听滚动事件
-      this.scroll.on("scroll", (position) => {
-        this.$emit("scroll", position);
-      });
-      // 监听上拉加载事件
-      this.scroll.on("pullingUp", () => {
-        this.$emit("pullingUp");
-      });
+      if (this.probeType === 2 || this.probeType === 3) {
+        this.scroll.on("scroll", (position) => {
+          this.$emit("scroll", position);
+        });
+      }
+      if (this.pullUpLoad) {
+        // 监听上拉加载事件
+        this.scroll.on("pullingUp", () => {
+          this.$emit("pullingUp");
+        });
+      }
     });
   },
   methods: {
@@ -52,10 +66,11 @@ export default {
       this.scroll && this.scroll.scrollTo(x, y, time);
     },
     finishPullUp() {
-      this.scroll.finishPullUp();
+      this.scroll && this.scroll.finishPullUp();
     },
     refresh() {
-      this.scroll.refresh();
+      console.log(1);
+      this.scroll && this.scroll.refresh();
     },
   },
 };

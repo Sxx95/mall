@@ -13,6 +13,8 @@
       @scroll="contentScroll"
       :pullUpLoad="true"
       @pullingUp="loadMore"
+      :observeDOM="true"
+      :observeImage="true"
     >
       <home-swiper :banners="banners" />
       <home-recommend-view :recommends="recommends" />
@@ -83,6 +85,12 @@ export default {
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
+  mounted() {
+    // this.$bus.$on("itemImageLoad", () => {
+    //   this.$refs.scroll.refresh();
+    //   console.log(1);
+    // });
+  },
   computed: {
     showGoods() {
       return this.goods[this.currentType].list;
@@ -111,7 +119,7 @@ export default {
     },
     loadMore() {
       this.getHomeGoods(this.currentType);
-      this.$refs.scroll.refresh();
+      // this.$refs.scroll.refresh();
     },
     // 数据请求
     getHomeMultiData() {
