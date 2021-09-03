@@ -20,6 +20,11 @@ export default {
       },
     },
   },
+  methods: {
+    // imageLoad() {
+    //   this.$bus.$emit("itemImageLoad");
+    // },
+  },
 };
 </script>
 
