@@ -5,6 +5,13 @@
         <div>购物街</div>
       </template>
     </nav-bar>
+    <tab-control
+      :titles="['流行', '新款', '精选']"
+      class="home-tab-control"
+      @tabClick="tabClick"
+      ref="tabControl1"
+      v-show="isTabFixed"
+    />
     <scroll
       class="content"
       ref="scroll"
@@ -16,13 +23,13 @@
       :observeDOM="true"
       :observeImage="true"
     >
-      <home-swiper :banners="banners" />
+      <home-swiper :banners="banners" @swiperImageLoad="swiperImageLoad" />
       <home-recommend-view :recommends="recommends" />
       <home-feature-view />
       <tab-control
         :titles="['流行', '新款', '精选']"
-        class="home-tab-control"
         @tabClick="tabClick"
+        ref="tabControl2"
       />
       <goods-list :goods="showGoods" />
     </scroll>
@@ -76,7 +83,19 @@ export default {
       },
       currentType: "pop",
       isShowBackTop: false,
+      tabOffsetTop: 0,
+      isTabFixed: false,
+      saveY: 0,
     };
+  },
+  activated() {
+    // 保持首页离开时的位置
+    this.$refs.scroll.scrollTo(0, this.saveY, 0);
+  },
+  deactivated() {
+    // 记录首页离开时的位置
+    this.saveY = this.$refs.scroll.saveY;
+    // console.log(this.saveY);
   },
   created() {
     // 将created钩子中的代码简化，处理主要逻辑，具体的方法实现交给methods
@@ -110,16 +129,22 @@ export default {
           this.currentType = "sell";
           break;
       }
+      this.$refs.tabControl1.currentIndex = index;
+      this.$refs.tabControl2.currentIndex = index;
     },
     backTop() {
       this.$refs.scroll.scrollTo(0, 0);
     },
     contentScroll(position) {
       this.isShowBackTop = -position.y > 1000;
+      this.isTabFixed = -position.y > this.tabOffsetTop;
     },
     loadMore() {
       this.getHomeGoods(this.currentType);
       // this.$refs.scroll.refresh();
+    },
+    swiperImageLoad() {
+      this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
     },
     // 数据请求
     getHomeMultiData() {
@@ -153,8 +178,9 @@ export default {
   color: #fff;
 }
 .home-tab-control {
-  position: sticky;
-  top: 44px;
+  /* position: sticky; */
+  /* top: 44px; */
+  position: relative;
   z-index: 1;
 }
 .content {

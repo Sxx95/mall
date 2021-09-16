@@ -38,6 +38,11 @@ export default {
       scroll: null,
     };
   },
+  computed: {
+    saveY() {
+      return this.scroll.y;
+    },
+  },
   mounted() {
     this.$nextTick(() => {
       this.scroll = new BScroll(this.$refs.wrapper, {
@@ -69,7 +74,6 @@ export default {
       this.scroll && this.scroll.finishPullUp();
     },
     refresh() {
-      console.log(1);
       this.scroll && this.scroll.refresh();
     },
   },

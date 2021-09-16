@@ -14,16 +14,16 @@ export default {
 
 <style>
 .nav-bar {
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
-  right: 0;
+  right: 0; */
   display: flex;
   height: 44px;
   line-height: 44px;
   text-align: center;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  /* z-index: 1; */
 }
 .left,
 .right {
