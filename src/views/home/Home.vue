@@ -89,12 +89,13 @@ export default {
     };
   },
   activated() {
-    // 保持首页离开时的位置
+    // 保持首页离开时的位置,先刷新，避免回弹
+    this.$refs.scroll.refresh();
     this.$refs.scroll.scrollTo(0, this.saveY, 0);
   },
   deactivated() {
     // 记录首页离开时的位置
-    this.saveY = this.$refs.scroll.saveY;
+    this.saveY = this.$refs.scroll.scrollY;
     // console.log(this.saveY);
   },
   created() {

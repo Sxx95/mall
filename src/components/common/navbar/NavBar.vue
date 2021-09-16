@@ -27,8 +27,8 @@ export default {
 }
 .left,
 .right {
+  display: flex;
   width: 60px;
-  /* background-color: rosybrown; */
 }
 .center {
   flex: 1;

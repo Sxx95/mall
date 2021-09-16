@@ -39,18 +39,24 @@ export default {
     };
   },
   computed: {
-    saveY() {
+    scrollY() {
       return this.scroll.y;
     },
   },
   mounted() {
     this.$nextTick(() => {
+      this.initScroll();
+    });
+  },
+  methods: {
+    initScroll() {
       this.scroll = new BScroll(this.$refs.wrapper, {
         probeType: this.probeType,
         click: this.click,
         pullUpLoad: this.pullUpLoad,
         observeDOM: this.observeDOM,
         observeImage: this.observeImage,
+        // useTransition: false,
       });
       // 监听滚动事件
       if (this.probeType === 2 || this.probeType === 3) {
@@ -64,9 +70,7 @@ export default {
           this.$emit("pullingUp");
         });
       }
-    });
-  },
-  methods: {
+    },
     scrollTo(x, y, time = 300) {
       this.scroll && this.scroll.scrollTo(x, y, time);
     },
