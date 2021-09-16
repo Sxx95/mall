@@ -5,18 +5,7 @@
       <detail-swiper :topImages="topImages" />
       <detail-base-info :goods="goods" />
       <detail-shop-info :shopInfo="shopInfo" />
-      <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
+      <detail-images-info :imagesInfo="imagesInfo" />
     </scroll>
   </div>
 </template>
@@ -26,6 +15,7 @@ import DetailNavBar from "./childComps/DetailNavBar.vue";
 import DetailSwiper from "./childComps/DetailSwiper.vue";
 import DetailBaseInfo from "./childComps/DetailBaseInfo.vue";
 import DetailShopInfo from "./childComps/DetailShopInfo.vue";
+import DetailImagesInfo from "./childComps/DetailImagesInfo.vue";
 
 import Scroll from "components/common/scroll/Scroll";
 
@@ -38,6 +28,7 @@ export default {
     DetailSwiper,
     DetailBaseInfo,
     DetailShopInfo,
+    DetailImagesInfo,
     Scroll,
   },
   data() {
@@ -46,6 +37,7 @@ export default {
       topImages: [],
       goods: {},
       shopInfo: {},
+      imagesInfo: {},
     };
   },
   created() {
@@ -60,6 +52,7 @@ export default {
         data.shopInfo.services
       );
       this.shopInfo = data.shopInfo;
+      this.imagesInfo = data.detailInfo;
     });
   },
   methods: {},
