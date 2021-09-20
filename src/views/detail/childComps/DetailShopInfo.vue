@@ -23,7 +23,7 @@
               {{ item.score }}
             </td>
             <td class="scorebgLColor" :class="{ scorebgHColor: item.isBetter }">
-              {{ item.isBetter | better }}
+              <span>{{ item.isBetter ? "高" : "低" }}</span>
             </td>
           </tr>
         </table>
@@ -51,12 +51,6 @@ export default {
       }
       return value;
     },
-    better(value) {
-      if (value) {
-        return "高";
-      }
-      return "低";
-    },
   },
 };
 </script>
@@ -70,16 +64,17 @@ export default {
 
 .shop-top {
   height: 60px;
+  vertical-align: center;
 }
 
 .shop-top img {
-  height: 100%;
+  height: 85%;
 }
 
 .shop-top span {
   position: relative;
-  top: -23px;
-  left: 4px;
+  top: -18px;
+  left: 6px;
   font-size: 17px;
 }
 
@@ -127,12 +122,12 @@ table td {
   color: var(--color-high-text);
 }
 
-.scorebgLColor {
+.scorebgLColor span {
   background-color: green;
   color: #fff;
 }
 
-.scorebgHColor {
+.scorebgHColor span {
   background-color: var(--color-high-text);
   color: #fff;
 }

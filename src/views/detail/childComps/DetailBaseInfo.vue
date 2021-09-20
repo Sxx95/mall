@@ -89,5 +89,7 @@ export default {
 
 .services img {
   width: 14px;
+  /* margin-right: 2px; */
+  margin: 0 2px -2px 0;
 }
 </style>

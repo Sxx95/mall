@@ -16,10 +16,6 @@ export default {
       type: Number,
       default: 0,
     },
-    click: {
-      type: Boolean,
-      default: false,
-    },
     pullUpLoad: {
       type: Boolean,
       default: false,
@@ -51,8 +47,8 @@ export default {
   methods: {
     initScroll() {
       this.scroll = new BScroll(this.$refs.wrapper, {
+        click: true,
         probeType: this.probeType,
-        click: this.click,
         pullUpLoad: this.pullUpLoad,
         observeDOM: this.observeDOM,
         observeImage: this.observeImage,

@@ -10,8 +10,8 @@
         <span
           v-for="(item, index) in titles"
           :key="index"
-          :class="{ active: currentIndex === index }"
           @click="titleClick(index)"
+          :class="{ activeTitle: currentIndex === index }"
         >
           {{ item }}
         </span>
@@ -40,6 +40,7 @@ export default {
     },
     titleClick(index) {
       this.currentIndex = index;
+      this.$emit("titleClick", index);
     },
   },
 };
@@ -65,7 +66,7 @@ export default {
   flex: 1;
 }
 
-.active {
+.activeTitle {
   color: var(--color-high-text);
 }
 </style>

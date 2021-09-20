@@ -6,13 +6,14 @@
       <div class="end right"></div>
     </div>
     <div v-for="(item, index) in imagesInfo.detailImage" :key="index">
-      <div class="info-key">{{ item.key }}</div>
+      <div class="info-key" v-if="item.list">{{ item.key }}</div>
       <div class="info-list">
         <img
-          v-for="(item, index) in item.list"
-          :key="index"
+          v-for="(item, indey) in item.list"
+          :key="indey"
           :src="item"
           alt=""
+          @load="detailImageLoad"
         />
       </div>
     </div>
@@ -26,6 +27,11 @@ export default {
     imagesInfo: {
       type: Object,
       default() {},
+    },
+  },
+  methods: {
+    detailImageLoad() {
+      this.$emit("detailImageLoad");
     },
   },
 };
