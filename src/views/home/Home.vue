@@ -46,9 +46,10 @@ import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl.vue";
 import GoodsList from "components/content/goods/GoodsList";
 import Scroll from "components/common/scroll/Scroll.vue";
-import BackTop from "components/content/backTop/BackTop.vue";
 
 import { getHomeMultiData, getHomeGoods } from "network/home.js";
+
+import { backTopMixin } from "common/mixin.js";
 
 export default {
   name: "Home",
@@ -60,7 +61,6 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
-    BackTop,
   },
   data() {
     return {
@@ -82,12 +82,12 @@ export default {
         },
       },
       currentType: "pop",
-      isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0,
     };
   },
+  mixins: [backTopMixin],
   activated() {
     // 保持首页离开时的位置,先刷新，避免回弹
     this.$refs.scroll.refresh();
@@ -133,11 +133,9 @@ export default {
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
-    backTop() {
-      this.$refs.scroll.scrollTo(0, 0);
-    },
     contentScroll(position) {
-      this.isShowBackTop = -position.y > 1000;
+      this.listenShowBackTop(position);
+      // this.isShowBackTop = -position.y > 1000;
       this.isTabFixed = -position.y > this.tabOffsetTop;
     },
     loadMore() {

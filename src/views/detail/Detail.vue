@@ -20,7 +20,8 @@
       <detail-comment-info :commentInfo="commentInfo" ref="comment" />
       <goods-list :goods="recommendInfo" ref="recommend" />
     </scroll>
-    <detail-bottom-bar />
+    <back-top @click.native="backTop" v-show="isShowBackTop" />
+    <detail-bottom-bar @addCart="addCart" />
   </div>
 </template>
 
@@ -40,6 +41,7 @@ import GoodsList from "components/content/goods/GoodsList.vue";
 import { getDetail, getRecommend, Goods } from "network/detail.js";
 
 import { debouce } from "common/utils.js";
+import { backTopMixin } from "common/mixin.js";
 
 export default {
   name: "Detail",
@@ -70,6 +72,7 @@ export default {
       currentIndexY: 0,
     };
   },
+  mixins: [backTopMixin],
   created() {
     this.iid = this.$route.params.iid;
     getDetail(this.iid).then((res) => {
@@ -114,6 +117,8 @@ export default {
       this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 200);
     },
     contentScroll(position) {
+      // this.isShowBackTop = -position.y > 0;
+      this.listenShowBackTop(position);
       const positionY = -position.y;
       for (let i = 0; i < this.themeTopYs.length; i++) {
         if (
@@ -125,6 +130,18 @@ export default {
           return;
         }
       }
+    },
+    addCart() {
+      const product = {};
+      product.iid = this.iid;
+      product.img = this.topImages[0];
+      product.title = this.goods.title;
+      product.desc = this.imagesInfo.desc;
+      // produce.price = this.
+      this.$store.dispatch("addCart", product);
+      // this.$store.dispatch("addCart", produce).then((res) => {
+      //   console.log(res);
+      // });
     },
   },
 };

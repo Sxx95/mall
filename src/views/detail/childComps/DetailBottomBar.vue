@@ -14,7 +14,7 @@
       <span>收藏</span>
     </div>
     <div class="bottom-bar-right">
-      <div>加入购物车</div>
+      <div @click="addCart">加入购物车</div>
       <div>购买</div>
     </div>
   </div>
@@ -29,6 +29,9 @@ export default {
   methods: {
     collectClick() {
       this.isActive = !this.isActive;
+    },
+    addCart() {
+      this.$emit("addToCart");
     },
   },
 };
