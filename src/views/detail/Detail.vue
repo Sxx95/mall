@@ -137,11 +137,8 @@ export default {
       product.img = this.topImages[0];
       product.title = this.goods.title;
       product.desc = this.imagesInfo.desc;
-      // produce.price = this.
+      product.price = this.goods.lowNowPrice;
       this.$store.dispatch("addCart", product);
-      // this.$store.dispatch("addCart", produce).then((res) => {
-      //   console.log(res);
-      // });
     },
   },
 };

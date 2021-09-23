@@ -1,15 +1,17 @@
 import { ADD_TO_CART, ADD_COUNT } from "./mutation-types";
 
 export default {
-  addCart(context, palyload) {
-    const oldProduce = context.state.cartList.find((item) => {
-      return item.iid === palyload.iid;
+  addCart(context, payload) {
+    // payload.count = 1;
+    // context.commit(ADD_TO_CART, payload);
+    const oldProduct = context.state.cartList.find((item) => {
+      return item.iid === payload.iid;
     });
-    if (oldProduce) {
-      context.commit(ADD_COUNT, oldProduce);
+    if (oldProduct) {
+      context.commit(ADD_COUNT, oldProduct);
     } else {
-      palyload.count = 1;
-      context.commit(ADD_TO_CART, palyload);
+      payload.count = 1;
+      context.commit(ADD_TO_CART, payload);
     }
   },
 };

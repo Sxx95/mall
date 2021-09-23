@@ -31,7 +31,7 @@ export default {
       this.isActive = !this.isActive;
     },
     addCart() {
-      this.$emit("addToCart");
+      this.$emit("addCart");
     },
   },
 };
