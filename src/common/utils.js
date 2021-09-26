@@ -1,11 +1,12 @@
 export function debouce(func, delay) {
+  // 此处也是局部变量，但下面形成了闭包，此局部变量就不会被销毁
   let timer = null;
   return function (...args) {
     if (timer) {
       clearTimeout(timer);
     }
     timer = setTimeout(() => {
-      func(...args);
+      func.apply(this, args);
     }, delay);
   };
 }

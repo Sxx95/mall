@@ -9,7 +9,7 @@
       <span>全选</span>
     </div>
     <div class="middle-price">合计：¥{{ totalPrice }}</div>
-    <div class="right-count">去计算（{{ totalCount }}）</div>
+    <div class="right-count" @click="calcClick">去计算（{{ totalCount }}）</div>
   </div>
 </template>
 
@@ -55,6 +55,11 @@ export default {
         });
       }
     },
+    calcClick() {
+      if (!this.totalCount) {
+        this.$toast.show("请选择购买的商品", 2000);
+      }
+    },
   },
 };
 </script>
@@ -90,6 +95,7 @@ export default {
   height: 100%;
   width: 100px;
   background-color: orangered;
+  padding-left: 10px;
   line-height: 40px;
   color: #fff;
 }

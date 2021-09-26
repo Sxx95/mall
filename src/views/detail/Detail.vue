@@ -102,6 +102,7 @@ export default {
       this.themeTopYs.push(this.$refs.params.$el.offsetTop);
       this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
       this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
+      this.themeTopYs.push(Number.MAX_VALUE);
       // console.log(this.themeTopYs);
     }, 100);
   },
@@ -118,18 +119,18 @@ export default {
     },
     contentScroll(position) {
       // this.isShowBackTop = -position.y > 0;
-      this.listenShowBackTop(position);
       const positionY = -position.y;
-      for (let i = 0; i < this.themeTopYs.length; i++) {
+      for (let i = 0; i < this.themeTopYs.length - 1; i++) {
         if (
+          this.currentIndexY !== i &&
           this.themeTopYs[i] <= positionY &&
-          positionY < (this.themeTopYs[i + 1] || Number.MAX_VALUE)
+          positionY < this.themeTopYs[i + 1]
         ) {
           this.currentIndexY = i;
           this.$refs.detailNav.currentIndex = this.currentIndexY;
-          return;
         }
       }
+      this.listenShowBackTop(position);
     },
     addCart() {
       const product = {};
@@ -138,7 +139,11 @@ export default {
       product.title = this.goods.title;
       product.desc = this.imagesInfo.desc;
       product.price = this.goods.lowNowPrice;
-      this.$store.dispatch("addCart", product);
+      this.$store.dispatch("addCart", product).then((res) => {
+        this.$toast.show(res);
+        // console.log(this.$toast);
+        // console.log(res);
+      });
     },
   },
 };

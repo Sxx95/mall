@@ -5,7 +5,7 @@
   --color-background: #fff;
   --font-size: 14px;
   --line-height: 1.5;
-  --ideal-viewport-width: 750;
+  --ideal-viewport-width: 375;
   --current-viewport-width: 100vw;
   --min-viewport-width: 320px;
   --max-viewport-width: 1440px;
