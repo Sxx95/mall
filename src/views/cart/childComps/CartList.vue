@@ -29,7 +29,7 @@ export default {
 
 <style scoped>
 .content {
-  height: calc(100vh - 44px - 49px - 40px);
+  height: calc(100vh - 44px - 40px - 49px);
   overflow: hidden;
 }
 </style>

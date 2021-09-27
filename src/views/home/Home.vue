@@ -180,6 +180,9 @@ export default {
   /* position: sticky; */
   /* top: 44px; */
   position: relative;
+  right: 0;
+  left: 0;
+  top: 0;
   z-index: 1;
 }
 .content {

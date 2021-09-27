@@ -67,6 +67,10 @@ export default {
 <style scoped>
 .cart-bottom-bar {
   display: flex;
+  /* position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 49px; */
   height: 40px;
   background-color: #aaaaaa41;
   text-align: center;
