@@ -1,5 +1,5 @@
 <template>
-  <grid-view v-if="subCategories" class="grid">
+  <div v-if="subCategories" class="menu-detail">
     <a
       :href="item.link"
       v-for="(item, index) in subCategories"
@@ -9,12 +9,10 @@
       <img :src="item.image" alt="" class="image" @load="imageLoad" />
       <div class="text">{{ item.title }}</div>
     </a>
-  </grid-view>
+  </div>
 </template>
 
 <script>
-import GridView from "components/common/gridview/GridView";
-
 export default {
   name: "CategoryMenuDetail",
   props: {
@@ -24,9 +22,6 @@ export default {
         return [];
       },
     },
-  },
-  components: {
-    GridView,
   },
   methods: {
     imageLoad() {
@@ -38,12 +33,16 @@ export default {
 
 <style scoped>
 .menu-detail {
+  display: flex;
   width: 90px;
   margin: 8px 0;
   font-size: 12px;
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
-.grid a:last-of-type {
+.div a:last-of-type {
   margin-bottom: 20px;
 }
 
