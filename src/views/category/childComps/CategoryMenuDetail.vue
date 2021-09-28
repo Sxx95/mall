@@ -1,5 +1,5 @@
 <template>
-  <div v-if="subCategories" class="menu-detail">
+  <div v-if="subCategories" class="category-menu-detail">
     <a
       :href="item.link"
       v-for="(item, index) in subCategories"
@@ -32,14 +32,17 @@ export default {
 </script>
 
 <style scoped>
-.menu-detail {
+.category-menu-detail {
   display: flex;
-  width: 90px;
-  margin: 8px 0;
-  font-size: 12px;
   text-align: center;
   flex-wrap: wrap;
   justify-content: flex-start;
+}
+
+.menu-detail {
+  width: 90px;
+  margin: 8px 0;
+  font-size: 12px;
 }
 
 .div a:last-of-type {
