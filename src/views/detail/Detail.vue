@@ -75,26 +75,8 @@ export default {
   mixins: [backTopMixin],
   created() {
     this.iid = this.$route.params.iid;
-    getDetail(this.iid).then((res) => {
-      // console.log(res);
-      const data = res.result;
-      this.topImages = data.itemInfo.topImages;
-      this.goods = new Goods(
-        data.itemInfo,
-        data.columns,
-        data.shopInfo.services
-      );
-      this.shopInfo = data.shopInfo;
-      this.imagesInfo = data.detailInfo;
-      this.paramsInfo = data.itemParams;
-      if (data.rate.cRate != 0) {
-        this.commentInfo = data.rate.list[0];
-      }
-    });
-    getRecommend().then((res) => {
-      // console.log(res);
-      this.recommendInfo = res.data.list;
-    });
+    this.getDetail(this.iid);
+    this.getRecommend();
     this.getThemeTopY = debouce(() => {
       this.$refs.scroll.refresh();
       this.themeTopYs = [];
@@ -143,6 +125,31 @@ export default {
         this.$toast.show(res);
         // console.log(this.$toast);
         // console.log(res);
+      });
+    },
+    // 请求数据
+    getDetail(id) {
+      getDetail(id).then((res) => {
+        // console.log(res);
+        const data = res.result;
+        this.topImages = data.itemInfo.topImages;
+        this.goods = new Goods(
+          data.itemInfo,
+          data.columns,
+          data.shopInfo.services
+        );
+        this.shopInfo = data.shopInfo;
+        this.imagesInfo = data.detailInfo;
+        this.paramsInfo = data.itemParams;
+        if (data.rate.cRate != 0) {
+          this.commentInfo = data.rate.list[0];
+        }
+      });
+    },
+    getRecommend() {
+      getRecommend().then((res) => {
+        // console.log(res);
+        this.recommendInfo = res.data.list;
       });
     },
   },
