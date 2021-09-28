@@ -95,7 +95,7 @@ export default {
           this.currentIndex = this.slideCount;
           this.setTransform(-this.currentIndex * this.totalWidth);
         }
-        this.$emit("transitionEnd", this.currentIndex - 1);
+        // this.$emit("transitionEnd", this.currentIndex - 1);
       }, this.animDuration);
     },
     // 到达位置
